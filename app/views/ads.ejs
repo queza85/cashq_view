@@ -1,0 +1,70 @@
+    <form id="adsForm" role="form" action="/adsupload" method="post" enctype="multipart/form-data">
+        <div class="col-lg-6">
+            <h2 class="page-header">Create Ads</h2>
+        </div>
+      
+        <div class="col-lg-10" />
+        <div class="col-lg-4">
+            <label>Advertisement Name</label>
+            <div class="form-group">
+                <input name="adsName" class="form-control" placeholder="Enter name of Ads" required>
+            </div>
+            <label>Advertisement Type</label>
+            <div class="form-group">
+                <label class="radio-inline">
+                    <input name="adsType" id="adsType1" value="basic" checked="" type="radio">Basic(Image)
+                </label>
+                <label class="radio-inline">
+                    <input name="adsType" id="adsType2" value="premium" type="radio">Premium(Video)
+                </label>
+            </div>
+            <label>Cash</label>
+            <div class="form-group input-group">
+                <span class="input-group-addon">RM</span>
+                <input name="adsCash" class="form-control text-right" type="number" required>
+                <span class="input-group-addon">.00</span>
+            </div>
+            <label>Publish Date</label>
+            <div class="input-daterange input-group" id="datepicker">
+                <input type="text" class="form-control" name="startDate" placeholder="Start date of Ads" required/>
+                <span class="input-group-addon">to</span>
+                <input type="text" class="form-control" name="endDate" placeholder="End date of Ads" required/>
+            </div>
+            
+        </div>
+        <div class="col-lg-10"></div>
+        <div class="col-lg-6">
+            <div class="form-group">
+                <label>Advertisement Media</label>
+                <input type="file" name="files" id="files" required style="margin-top:0px !important;" multiple>
+            </div>
+        </div>
+        <div class="col-lg-10"></div>
+        <div class="col-lg-4">
+            <input type="submit" value="Create" class="btn btn-primary btn-lg btn-block">
+        </div>
+    </form>
+<script>
+    $(document).ready(function() {
+        $('.input-daterange').datepicker({});
+        $(".fileuploader").css('margin-top','0');
+        $(".input-daterange").css('margin-bottom','15');
+        
+        $('#adsForm').submit( function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/adsupload',
+                data: new FormData(this),
+                cache: false,
+                contentType: false,
+                processData: false,
+                type: 'POST',     
+                success: function(data){
+                    alert("Create complted.");
+                    window.location.href="/";
+                }
+            });
+            return false;
+        });
+    });
+</script>
